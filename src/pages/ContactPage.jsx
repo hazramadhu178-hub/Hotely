@@ -131,7 +131,7 @@ export default function ContactPage() {
                     </div>
                   )}
                   <label className="form-label">Your message<textarea className={inputClass} name="message" rows={5} required minLength={10} maxLength={2000} placeholder="Tell us about your dates, room preferences, dietary needs, or any other requests." /></label>
-                  <Button type="submit" variant="teal" className="form-submit" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Enquiry'}<ArrowRight size={16} /></Button>
+                  <Button type="submit" variant="teal" className="form-submit" loading={isSubmitting} disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Enquiry'}<ArrowRight size={16} /></Button>
                   <p className="form-note"><ShieldCheck size={14} />We will send this enquiry to the hotel team and confirm the next step.</p>
                 </form>
               )}

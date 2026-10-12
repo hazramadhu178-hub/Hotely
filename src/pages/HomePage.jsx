@@ -2,18 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BedDouble, BellRing, Clock, Coffee, Dumbbell, Play, Utensils, Waves, Wifi } from 'lucide-react';
 import RoomCard from '../components/RoomCard.jsx';
-import { StatsBand } from '../components/ExtraSections.jsx';
 import { ArrowButton, Button, Photo, SectionHeading, useScrollReveal } from '../components/ui.jsx';
 import { useApp } from '../context/AppContext.jsx';
 import { articles, experiences, films, heroSlides, images, offers, rooms, testimonials } from '../hotelData.js';
 
 const amenities = [
-  { icon: BedDouble, title: 'Restful rooms & suites', text: 'Comfortable beds, soft linens, and thoughtfully furnished spaces for a good night\'s sleep.' },
+  { icon: BedDouble, title: 'Restful rooms', text: 'Comfortable beds, soft linens, and thoughtfully furnished spaces for a good night\'s sleep.' },
   { icon: BellRing, title: '24-hour concierge', text: 'From a late arrival to a special request, our hotel team is here whenever you need us.' },
   { icon: Wifi, title: 'Complimentary Wi-Fi', text: 'Stay connected in your room and throughout the hotel, with Wi-Fi included in every stay.' },
   { icon: Dumbbell, title: 'Fitness & wellness', text: 'Keep your routine in our fitness studio, then make time to unwind at Serenity Spa.' },
   { icon: Utensils, title: 'Fresh, relaxed dining', text: 'Enjoy breakfast at The Palm Table, poolside light bites, and dinner with an ocean view.' },
-  { icon: Waves, title: 'Beach & pool', text: 'A private stretch of sand, sun loungers with shade, and our main pool beside the bar.' },
+  { icon: Waves, title: 'Beach & pool', text: 'Beach sand, sun loungers with shade, and our main pool beside the bar.' },
 ];
 
 const heroFacts = [
@@ -47,12 +46,13 @@ export default function HomePage() {
             </div>
             <div className="hero-actions">
                 <Button href="#/rooms">Book Your Stay</Button>
-                <Link className="hero-secondary-link" to="/rooms">Browse rooms &amp; villas<ArrowRight size={15} /></Link>
+                <Link className="hero-secondary-link" to="/rooms">Browse rooms<ArrowRight size={15} /></Link>
             </div>
             <ul className="hero-facts">
                 {heroFacts.map(({ icon: Icon, label }) => <li key={label}><Icon size={15} />{label}</li>)}
             </ul>
             </div>
+
             <div className="hero-media">
             <div className="hero-orbits" aria-hidden="true" />
             <div className="hero-main-image"><Photo key={hero.image} className="hero-photo image-enter" src={hero.image} alt={hero.alt} eager fetchPriority="high" /></div>
@@ -70,13 +70,11 @@ export default function HomePage() {
         </div>
         </section>
 
-      <StatsBand />
-
         <section className="amenities-section section-space">
         <div className="container reveal">
             <SectionHeading eyebrow="Welcome to our hotel">Thoughtful comforts, and a genuinely warm welcome.</SectionHeading>
             <p className="section-lead">
-            Hotely Beach Resort is a small, unhurried island hotel with 48 rooms, suites, and villas, three places to eat and drink,
+            Hotely Beach Resort is a small, hotel with 48 rooms and places to eat and drink,
             and a team that remembers how you like your morning coffee.
             </p>
             <div className="amenities-grid">
@@ -93,7 +91,7 @@ export default function HomePage() {
 
         <section className="featured-section section-space">
         <div className="container reveal">
-            <SectionHeading eyebrow="Rooms, suites & villas">Your own space to unwind.</SectionHeading>
+            <SectionHeading eyebrow="Rooms & suites">Your own space to unwind.</SectionHeading>
             <p className="section-lead">A few favourites from our collection. Every rate includes breakfast, Wi-Fi, and access to the pool and fitness studio.</p>
             <div className="rooms-grid">
             {featuredRooms.map((room) => (

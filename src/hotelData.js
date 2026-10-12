@@ -93,7 +93,7 @@ export const rooms = [
     features: ['Two queen-size beds', 'Space for a travel cot on request', 'Family-friendly bathroom', 'Close to the main pool'],
   },
   {
-    id: 'beach-villa', name: 'Beachfront Villa', category: 'Villas', image: images.beachVilla,
+    id: 'beach', name: 'Beachfront ', category: 'Villas', image: images.beachVilla,
     price: 420, guests: 2, beds: '1 king bed', size: 80, view: 'Direct beach access',
     description: 'Step from your private terrace onto soft sand. A generous bedroom, indoor-outdoor living space, and a secluded garden bathroom bring a little more privacy to your seaside stay.',
     features: ['Direct access to the beach', 'Private furnished terrace', 'Indoor-outdoor bathroom', 'Dedicated villa concierge'],
@@ -421,7 +421,7 @@ export const awards = [
 
 export const roomInclusions = [
   { id: 'breakfast', title: 'Breakfast every morning', text: 'A full breakfast at The Palm Table is included in every rate shown, served from 7:00 to 10:30 AM.' },
-  { id: 'wifi', title: 'Wi-Fi throughout', text: 'Complimentary high-speed Wi-Fi in your room, by the pool, on the beach, and across the public areas.' },
+  { id: 'wifi', title: 'Wi-Fi throughout', text: 'Complimentary high-speed Wi-Fi in your room, by the pool and across the public areas.' },
   { id: 'facilities', title: 'Pool, beach & fitness', text: 'Loungers, towels, the infinity pool, the fitness studio, and the house reef are all included with your stay.' },
   { id: 'housekeeping', title: 'Daily housekeeping', text: 'Your room is serviced each morning, with an evening turndown in suites and villas.' },
   { id: 'water', title: 'Filtered drinking water', text: 'We bottle our own still and sparkling water on the island and refill it in your room each day.' },

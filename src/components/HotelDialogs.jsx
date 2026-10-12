@@ -30,6 +30,7 @@ export function RoomContent({ room, region, saved, onSave, onReserve, onClose })
     return { checkIn, checkOut: dateAfter(3, checkIn), guests: Math.min(2, room.guests) };
   });
   const [reservation, setReservation] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const nights = stay.checkIn && stay.checkOut ? nightsBetween(stay.checkIn, stay.checkOut) : 1;
   const subtotal = room.price * nights;
@@ -76,6 +77,8 @@ export function RoomContent({ room, region, saved, onSave, onReserve, onClose })
         ...stay, total, guestName: fields.get('name').trim(), email: fields.get('email').trim(), status: 'confirmed',
       };
 
+      setIsSubmitting(true);
+
       try {
         const response = await fetch('/api/reservations', {
           method: 'POST',
@@ -103,6 +106,8 @@ export function RoomContent({ room, region, saved, onSave, onReserve, onClose })
         setStep('confirmed');
       } catch (error) {
         setError(error.message || 'Something went wrong while sending your reservation request.');
+      } finally {
+        setIsSubmitting(false);
       }
     }}>
       <button type="button" className="text-button" onClick={() => setStep('details')}><ArrowLeft size={15} />Back to room details</button>
@@ -119,7 +124,7 @@ export function RoomContent({ room, region, saved, onSave, onReserve, onClose })
       <div className="price-total"><span>Total for {nights} {nights === 1 ? 'night' : 'nights'}</span><strong>{money(total, region)}</strong></div>
       {error && <p className="form-error" role="alert">{error}</p>}
       <label className="checkbox-label"><input className="h-4 w-4 accent-blue-700" type="checkbox" required /><span>I understand this reservation request will be sent to the hotel team for handling.</span></label>
-      <Button className="form-submit" type="submit" rounded>Confirm Reservation Request<Check size={16} /></Button>
+      <Button className="form-submit" type="submit" rounded loading={isSubmitting} disabled={isSubmitting}>Confirm Reservation Request<Check size={16} /></Button>
       <p className="form-note">No payment details are required to send the reservation request.</p>
     </form>
   );
@@ -153,7 +158,7 @@ export function RoomContent({ room, region, saved, onSave, onReserve, onClose })
           <div className="price-total"><span>Total for your room</span><strong>{money(total, region)}</strong></div>
         </div>
         {error && <p className="form-error" role="alert">{error}</p>}
-        <Button type="submit" className="form-submit" rounded>Reserve This Room<ArrowRight size={16} /></Button>
+        <Button type="submit" className="form-submit" rounded loading={isSubmitting} disabled={isSubmitting}>Reserve This Room<ArrowRight size={16} /></Button>
         <p className="form-note"><ShieldCheck size={14} />Illustrative rates, not live availability. No payment is taken.</p>
       </form>
     </div>
@@ -222,7 +227,7 @@ export function ContactContent({ context, onClose }) {
         <label className="form-label">Number of guests<input className={inputClass} name="guests" type="number" defaultValue={2} min={1} max={20} required /></label>
       </div>}
       <label className="form-label">Your request<textarea className={inputClass} name="message" rows={4} required minLength={10} maxLength={2000} placeholder={topic === 'arrival' ? 'Please include your flight number, arrival time, and any transfer requirements.' : 'Tell us about your preferred time, room requirements, dietary needs, or other requests.'} /></label>
-      <Button type="submit" className="form-submit" variant="blue" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Enquiry'}<ArrowRight size={16} /></Button>
+      <Button type="submit" className="form-submit" variant="blue" loading={isSubmitting} disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Enquiry'}<ArrowRight size={16} /></Button>
       <p className="form-note">Your request is sent to the hotel team and will be handled with the next available response.</p>
     </form>
   );
@@ -285,7 +290,7 @@ export function EventContent({ onClose }) {
         <label className="form-label">Estimated guest count<input className={inputClass} name="guests" type="number" min={2} max={120} required placeholder="For example, 30" /></label>
       </div>
       <label className="form-label">Tell us about your plans<textarea className={inputClass} name="description" rows={4} placeholder="Your preferred setting, dining ideas, room requirements, and any special details." required minLength={20} maxLength={2000} /></label>
-      <Button type="submit" className="form-submit" rounded disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Event Enquiry'}<ArrowRight size={16} /></Button>
+      <Button type="submit" className="form-submit" rounded loading={isSubmitting} disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Event Enquiry'}<ArrowRight size={16} /></Button>
       <p className="form-note">The hotel team will review your occasion details and share availability and next steps.</p>
     </form>
   );

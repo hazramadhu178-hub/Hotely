@@ -21,13 +21,10 @@ export default function RoomCard({ room, region, saved, onSave, onOpen }) {
           <span><strong>{room.guests}</strong><em>guests max</em></span>
         </div>
         <h3><button type="button" onClick={() => onOpen(room)}>{room.name}</button></h3>
-        <p className="room-meta"><BedDouble size={13} aria-hidden="true" />{room.beds}<span aria-hidden="true">/</span>{room.view}</p>
+        <p className="room-meta"><BedDouble size={13} aria-hidden="true" />{room.beds}</p>
         <ul className="room-chips">{room.features.slice(0, 2).map((feature) => <li key={feature}>{feature}</li>)}</ul>
         <div className="room-actions">
           <Button variant="outline" onClick={() => onOpen(room)}>View Room<ArrowRight size={15} /></Button>
-          <button className="save-hotel-text" type="button" aria-pressed={saved} onClick={() => onSave(room.id)}>
-            <Heart size={15} fill={saved ? 'currentColor' : 'none'} />{saved ? 'Saved' : 'Save'}
-          </button>
         </div>
       </div>
     </article>

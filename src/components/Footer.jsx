@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BedDouble, BellRing, CheckCircle2, ChevronRight, Sparkles, Utensils, Waves } from 'lucide-react';
 import { Button, Logo, inputClass } from './ui.jsx';
@@ -18,6 +19,7 @@ const exploreLinks = [
 
 export default function Footer() {
   const { newsletter, setNewsletter, openContact, openEvent, openAccount, setModal } = useApp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <footer className="site-footer">
@@ -56,12 +58,19 @@ export default function Footer() {
             <form onSubmit={(event) => {
               event.preventDefault();
               const form = new FormData(event.currentTarget);
-              setNewsletter({ email: form.get('email').trim() });
+              const email = String(form.get('email') || '').trim();
+              if (!email) return;
+
+              setIsSubmitting(true);
+              window.setTimeout(() => {
+                setNewsletter({ email });
+                setIsSubmitting(false);
+              }, 600);
             }}>
               <label className="sr-only" htmlFor="newsletter-email">Email for hotel offers and news</label>
-              <input id="newsletter-email" className={inputClass} name="email" type="email" autoComplete="email" placeholder="Your email address" required />
-              <Button variant="teal" type="submit">Keep Me Updated</Button>
-              <label className="newsletter-consent"><input className="h-3.5 w-3.5 shrink-0 accent-blue-700" type="checkbox" required /><span>I agree to receive hotel offers, dining news, and spa updates.</span></label>
+              <input id="newsletter-email" className={inputClass} name="email" type="email" autoComplete="email" placeholder="Your email address" required disabled={isSubmitting} />
+              <Button variant="teal" type="submit" loading={isSubmitting} disabled={isSubmitting}>Keep Me Updated</Button>
+              <label className="newsletter-consent"><input className="h-3.5 w-3.5 shrink-0 accent-blue-700" type="checkbox" required disabled={isSubmitting} /><span>I agree to receive hotel offers, dining news, and spa updates.</span></label>
             </form>
           )}
         </div>

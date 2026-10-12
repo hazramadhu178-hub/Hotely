@@ -39,47 +39,47 @@ export default function AboutPage() {
       />
 
       <section className="about-section section-space">
-        <div className="container">
-          <div className="about-layout reveal">
-            <div className="about-media">
-              <Photo className="about-main-photo" src={images.gardens} alt="A quiet pool and palm garden at the resort" />
-              <div className="about-secondary-media">
-                <Photo src={images.reception} alt="The resort reception and lobby area" />
-              </div>
-              <p className="about-caption"><span>North Male Atoll</span>A small resort between the gardens and the lagoon.</p>
-            </div>
-            <div className="about-copy">
-              <span className="eyebrow"><i aria-hidden="true" />Our story</span>
-              <h2>Built slowly, and kept deliberately small.</h2>
-              <p className="about-lead">Our 48 rooms, suites, and villas sit between tropical gardens and a calm stretch of lagoon. The scale is intentionally intimate.</p>
-              <p>It means breakfast can be unhurried, favourite drinks are remembered, and there is always a quiet corner to make your own. Our team has the time to notice what would make your day easier, from a shaded lounger at the right hour to a table where you can watch the sunset.</p>
-              <p>Rather than filling every hour with a programme, we give you room to choose your own pace. Swim before breakfast, stay by the pool until the light goes, book time at the spa, or simply leave the day open and see what it becomes.</p>
-              <blockquote>
-                <span aria-hidden="true">&ldquo;</span>
-                <p>Hospitality should feel less like a performance and more like being genuinely looked after.</p>
-              </blockquote>
-              <div className="about-actions">
-                <Button variant="teal" href="#/rooms">Explore Rooms &amp; Villas<ArrowRight size={15} /></Button>
-                <Link to="/beach">See the beach<ArrowRight size={15} /></Link>
-              </div>
-            </div>
-          </div>
+      <div className="container">
+      <div className="about-layout reveal">
+      <div className="about-media">
+      <Photo className="about-main-photo" src={images.gardens} alt="A quiet pool and palm garden at the resort" />
+      <div className="about-secondary-media">
+        <Photo src={images.reception} alt="The resort reception and lobby area" />
+      </div>
+      <p className="about-caption"><span>North Male Atoll</span>A small resort between the gardens and the lagoon.</p>
+      </div>
+      <div className="about-copy">
+      <span className="eyebrow"><i aria-hidden="true" />Our story</span>
+      <h2>Built slowly, and kept deliberately small.</h2>
+      <p className="about-lead">Our 48 rooms, suites, and villas sit between tropical gardens and a calm stretch of lagoon. The scale is intentionally intimate.</p>
+      <p>It means breakfast can be unhurried, favourite drinks are remembered, and there is always a quiet corner to make your own. Our team has the time to notice what would make your day easier, from a shaded lounger at the right hour to a table where you can watch the sunset.</p>
+      <p>Rather than filling every hour with a programme, we give you room to choose your own pace. Swim before breakfast, stay by the pool until the light goes, book time at the spa, or simply leave the day open and see what it becomes.</p>
+      <blockquote>
+        <span aria-hidden="true">&ldquo;</span>
+        <p>Hospitality should feel less like a performance and more like being genuinely looked after.</p>
+      </blockquote>
+      <div className="about-actions">
+        <Button variant="teal" href="#/rooms">Explore Rooms &amp; Villas<ArrowRight size={15} /></Button>
+        <Link to="/beach">See the beach<ArrowRight size={15} /></Link>
+      </div>
+      </div>
+      </div>
 
-          <div className="about-principles reveal">
-            <div className="about-principles-heading">
-              <span className="eyebrow"><i aria-hidden="true" />How we host</span>
-              <h3>Four simple promises behind every stay.</h3>
-            </div>
-            <div className="about-principles-list">
-              {principles.map((principle) => (
-                <article className="about-principle" key={principle.id}>
-                  <h4>{principle.title}</h4>
-                  <p>{principle.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="about-principles reveal">
+      <div className="about-principles-heading">
+      <span className="eyebrow"><i aria-hidden="true" />How we host</span>
+      <h3>Four simple promises behind every stay.</h3>
+      </div>
+      <div className="about-principles-list">
+      {principles.map((principle) => (
+        <article className="about-principle" key={principle.id}>
+          <h4>{principle.title}</h4>
+          <p>{principle.text}</p>
+        </article>
+      ))}
+      </div>
+      </div>
+      </div>
       </section>
 
       <StatsBand />

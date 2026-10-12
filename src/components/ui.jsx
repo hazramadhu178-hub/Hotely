@@ -14,10 +14,13 @@ export function handleTabKeys(event) {
   tabs[nextIndex].click();
 }
 
-export function Button({ children, variant = 'gradient', rounded = false, className = '', href, type = 'button', ...props }) {
+export function Button({ children, variant = 'gradient', rounded = false, className = '', href, type = 'button', loading = false, ...props }) {
   const Tag = href ? 'a' : 'button';
+  const isDisabled = loading || props.disabled;
+
   return (
-    <Tag href={href} type={href ? undefined : type} className={`btn btn--${variant} inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-60 ${rounded ? 'rounded-full' : 'rounded-md'} ${className}`} {...props}>
+    <Tag {...props} href={href} type={href ? undefined : type} className={`btn btn--${variant} inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700 disabled:cursor-not-allowed disabled:opacity-60 ${rounded ? 'rounded-full' : 'rounded-md'} ${className}`} disabled={isDisabled}>
+      {loading && <span className="btn-spinner" aria-hidden="true" />}
       {children}
     </Tag>
   );
