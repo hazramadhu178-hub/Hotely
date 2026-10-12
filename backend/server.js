@@ -1,0 +1,570 @@
+import express from "express";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { fileURLToPath } from "node:url";
+
+dotenv.config({
+    override: true,
+    path: fileURLToPath(new URL("./.env", import.meta.url)),
+});
+
+const app = express();
+
+const PORT = Number(process.env.PORT) || 5001;
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(204);
+    }
+    next();
+});
+
+app.use(express.json());
+
+app.post("/api/inquiries", async (req, res) => {
+
+    const {
+        name,
+        email,
+        subject,
+        phone,
+        message,
+    } = req.body || {};
+
+    if (!name || !email || !subject || !phone || !message) {
+        return res.status(400).json({
+            message: "All Field Is Required.",
+        });
+    }
+
+    const isEmailConfigured = Boolean(
+        process.env.EMAIL_USER &&
+        process.env.EMAIL_PASS &&
+        process.env.EMAIL_TO
+    );
+
+    if (!isEmailConfigured && process.env.NODE_ENV !== "production") {
+        console.warn(
+            "Inquiry email is not configured; accepting request in local development mode."
+        );
+
+        return res.status(200).json({
+            message: "Inquiry received. Email delivery is disabled in local development mode.",
+            devMode: true,
+        });
+    }
+
+    if (!isEmailConfigured) {
+        return res.status(500).json({
+            message: "Inquiry email is not configured. Add EMAIL_USER, EMAIL_PASS and EMAIL_TO in your .env file.",
+        });
+    }
+
+    try {
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        await transporter.sendMail({
+
+            from: process.env.EMAIL_USER,
+
+            to: process.env.EMAIL_TO,
+
+            replyTo: email,
+
+            subject: `New concierge inquiry: ${subject}`,
+
+            html: `
+                <div style="margin:0;padding:32px 16px;background-color:#f4f7f6;font-family:Arial,Helvetica,sans-serif;color:#263634;">
+                <div style="max-width:640px;margin:0 auto;background-color:#ffffff;border:1px solid #dce7e3;border-radius:12px;overflow:hidden;">
+                <div style="padding:28px 32px;background-color:#1f5147;color:#ffffff;">
+                    <p style="margin:0 0 8px;font-size:12px;line-height:1.4;letter-spacing:1.5px;text-transform:uppercase;color:#c7e2d8;">Landing Page Website</p>
+                    <h2 style="margin:0;font-size:26px;line-height:1.25;font-weight:600;">New Concierge Inquiry</h2>
+                    <p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#e5f2ed;">A new visitor has submitted an inquiry.</p>
+                </div>
+
+                <div style="padding:28px 32px;">
+                    <h3 style="margin:0 0 16px;font-size:16px;line-height:1.4;color:#1f5147;">Contact details</h3>
+
+                <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+                    <tr>
+                        <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;"> Name </td>
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;"> ${name} </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;"> Email </td>
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;"> ${email} </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;"> Phone </td>
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;"> ${phone} </td>
+                    </tr>
+                </table>
+
+                    <h3 style="margin:28px 0 16px;font-size:16px;line-height:1.4;color:#1f5147;"> Inquiry details </h3>
+
+                <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+                <tr>
+                    <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;"> Subject </td>
+                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;"> ${subject} </td>
+                </tr>
+                </table>
+
+                <div style="margin-top:28px;padding:18px 20px;background-color:#f4f7f6;border-left:4px solid #c58a45;border-radius:4px;">
+                    <p style="margin:0 0 6px;font-size:14px;font-weight:600;color:#687773;"> Message </p>
+                    <p style="margin:0;font-size:15px;line-height:1.6;color:#263634;white-space:pre-line;"> ${message} </p>
+                </div>
+                </div>
+
+                <div style="padding:18px 32px;border-top:1px solid #edf1f0;text-align:center;">
+                    <p style="margin:0;font-size:12px;line-height:1.5;color:#87938f;"> Please reply to this email to contact the visitor directly. </p>
+                </div>
+
+                </div>
+                </div>
+            `,
+        });
+
+        return res.status(200).json({
+            message: "Inquiry sent successfully.",
+        });
+
+    } catch (error) {
+
+        console.error("Inquiry email failed:", error);
+
+        return res.status(500).json({
+            message: "Something went wrong while sending your inquiry.",
+        });
+    }
+});
+
+app.post("/api/reservations", async (req, res) => {
+    console.log("Reservation data:", req.body);
+
+    const {
+        name,
+        email,
+        phone,
+        room,
+        checkIn,
+        checkOut,
+        adults,
+        children,
+        requests,
+    } = req.body || {};
+
+    if (!name || !email || !phone || !room || !checkIn || !checkOut || !adults) {
+        return res.status(400).json({
+            message: "All Field Is Required.",
+        });
+    }
+    const isEmailConfigured = Boolean(
+        process.env.EMAIL_USER &&
+        process.env.EMAIL_PASS &&
+        process.env.EMAIL_TO
+    );
+
+    if (!isEmailConfigured && process.env.NODE_ENV !== "production") {
+        console.warn(
+            "Reservation email is not configured; accepting request in local development mode."
+        );
+
+        return res.status(200).json({
+            message: "Reservation received. Email delivery is disabled in local development mode.",
+            devMode: true,
+        });
+    }
+
+    if (!isEmailConfigured) {
+        return res.status(500).json({
+            message: "Reservation email is not configured. Add EMAIL_USER, EMAIL_PASS and EMAIL_TO in your .env file.",
+        });
+    }
+
+    try {
+        const transporter = nodemailer.createTransport({
+
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+
+        await transporter.sendMail({
+
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_TO,
+            replyTo: email,
+            subject: `New reservation request: ${room}`,
+            html: `
+
+                <div style="margin:0;padding:32px 16px;background-color:#f4f7f6;font-family:Arial,Helvetica,sans-serif;color:#263634;">
+                <div style="max-width:640px;margin:0 auto;background-color:#ffffff;border:1px solid #dce7e3;border-radius:12px;overflow:hidden;">
+                <div style="padding:28px 32px;background-color:#1f5147;color:#ffffff;">
+                    <p style="margin:0 0 8px;font-size:12px;line-height:1.4;letter-spacing:1.5px;text-transform:uppercase;color:#c7e2d8;"> Landing Page Website </p>
+                    <h2 style="margin:0;font-size:26px;line-height:1.25;font-weight:600;"> New Reservation Request </h2>
+                    <p style="margin:10px 0 0;font-size:14px;line-height:1.5;color:#e5f2ed;"> A new visitor has submitted a reservation request. </p>
+                </div>
+
+                <div style="padding:28px 32px;">
+                    <h3 style="margin:0 0 16px;font-size:16px;line-height:1.4;color:#1f5147;"> Guest details </h3>
+                <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+                    <tr>
+                        <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Name
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${name}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Email
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${email}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Phone
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${phone}
+                        </td>
+                    </tr>
+                </table>
+
+                <h3 style="margin:28px 0 16px;font-size:16px;line-height:1.4;color:#1f5147;"> Reservation details </h3>
+                <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+                    <tr>
+                        <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Room
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${room}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Check-in
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${checkIn}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Check-out
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${checkOut}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Adults
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${adults}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                            Children
+                        </td>
+
+                        <td style="padding:10px 0;border-bottom:1px solid #edf1f0;color:#263634;">
+                            ${children || 0}
+                        </td>
+                    </tr>
+                </table>
+                <div style="margin-top:28px;padding:18px 20px;background-color:#f4f7f6;border-left:4px solid #c58a45;border-radius:4px;">
+                    <p style="margin:0 0 6px;font-size:14px;font-weight:600;color:#687773;">
+                        Special requests
+                    </p>
+                    <p style="margin:0;font-size:15px;line-height:1.6;color:#263634;white-space:pre-line;">
+                        ${requests || "None"}
+                    </p>
+                </div>
+                </div>
+
+                <div style="padding:18px 32px;border-top:1px solid #edf1f0;text-align:center;">
+                    <p style="margin:0;font-size:12px;line-height:1.5;color:#87938f;">Please reply to this email to contact the guest directly.</p>
+                </div>
+                </div>
+                </div>
+            `,
+        });
+
+
+        return res.status(200).json({
+            message: "Reservation sent successfully.",
+        });
+
+
+    } catch (error) {
+
+        console.error("Reservation email failed:", error);
+
+        return res.status(500).json({
+            message: "Something went wrong while sending your reservation.",
+        });
+    }
+
+});
+
+
+app.post("/api/dining-reservations", async (req, res) => {
+
+    const {
+        fullName,
+        mobileNumber,
+        venue,
+        venueType,
+        date,
+        time,
+        guests,
+        specialRequests,
+    } = req.body || {};
+
+    if (
+        !fullName ||
+        !mobileNumber ||
+        !venue ||
+        !venueType ||
+        !date ||
+        !time ||
+        !guests
+    ) {
+        return res.status(400).json({
+            message: "This Field Is Required.",
+        });
+    }
+
+    const isEmailConfigured = Boolean(
+        process.env.EMAIL_USER &&
+        process.env.EMAIL_PASS &&
+        process.env.EMAIL_TO
+    );
+
+    if (!isEmailConfigured && process.env.NODE_ENV !== "production") {
+        console.warn(
+            "Dining reservation email is not configured; accepting request in local development mode."
+        );
+
+        return res.status(200).json({
+            message: "Dining reservation received. Email delivery is disabled in local development mode.",
+            devMode: true,
+        });
+    }
+
+    if (!isEmailConfigured) {
+        return res.status(500).json({
+            message: "Dining reservation email is not configured. Add EMAIL_USER, EMAIL_PASS and EMAIL_TO in your .env file.",
+        });
+    }
+
+    try {
+
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_TO,
+            subject: `New dining reservation: ${venue}`,
+
+            html: `
+                <div style="margin:0;padding:32px 16px;background-color:#f4f7f6;font-family:Arial,Helvetica,sans-serif;color:#263634;">
+
+                    <div style="max-width:640px;margin:0 auto;background-color:#ffffff;border:1px solid #dce7e3;border-radius:12px;overflow:hidden;">
+
+                        <div style="padding:28px 32px;background-color:#1f5147;color:#ffffff;">
+
+                            <p style="margin:0 0 8px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#c7e2d8;">
+                                Landing Page Website
+                            </p>
+
+                            <h2 style="margin:0;font-size:26px;font-weight:600;">
+                                New Dining Reservation
+                            </h2>
+
+                            <p style="margin:10px 0 0;font-size:14px;color:#e5f2ed;">
+                                A new visitor has requested a table.
+                            </p>
+
+                        </div>
+
+                        <div style="padding:28px 32px;">
+
+                            <h3 style="margin:0 0 16px;color:#1f5147;">
+                                Guest details
+                            </h3>
+
+                            <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+
+                                <tr>
+                                    <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                                        Full name
+                                    </td>
+
+                                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;">
+                                        ${fullName}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px 12px 10px 0;color:#687773;font-weight:600;">
+                                        Mobile number
+                                    </td>
+
+                                    <td style="padding:10px 0;">
+                                        ${mobileNumber}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <h3 style="margin:28px 0 16px;color:#1f5147;">
+                                Reservation details
+                            </h3>
+
+                            <table role="presentation" style="width:100%;border-collapse:collapse;font-size:15px;line-height:1.5;">
+
+                                <tr>
+                                    <td style="width:34%;padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                                        Venue
+                                    </td>
+
+                                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;">
+                                        ${venue}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                                        Type
+                                    </td>
+
+                                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;">
+                                        ${venueType}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                                        Date
+                                    </td>
+
+                                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;">
+                                        ${date}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px 12px 10px 0;border-bottom:1px solid #edf1f0;color:#687773;font-weight:600;">
+                                        Time
+                                    </td>
+
+                                    <td style="padding:10px 0;border-bottom:1px solid #edf1f0;">
+                                        ${time}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="padding:10px 12px 10px 0;color:#687773;font-weight:600;">
+                                        Guests
+                                    </td>
+
+                                    <td style="padding:10px 0;">
+                                        ${guests}
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <div style="margin-top:28px;padding:18px 20px;background-color:#f4f7f6;border-left:4px solid #c58a45;border-radius:4px;">
+
+                                <p style="margin:0 0 6px;font-size:14px;font-weight:600;color:#687773;">
+                                    Special requests
+                                </p>
+
+                                <p style="margin:0;font-size:15px;line-height:1.6;white-space:pre-line;">
+                                    ${specialRequests || "None"}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            `,
+        });
+
+        return res.status(200).json({
+            message: "Dining reservation sent successfully.",
+        });
+
+    } catch (error) {
+
+        console.error("Dining reservation email failed:", error);
+
+        return res.status(500).json({
+            message: "Something went wrong while sending your dining reservation.",
+        });
+    }
+});
+
+
+app.get("/api/health", (_req, res) => {
+
+    res.json({
+        status: "ok",
+    });
+
+});
+
+if (process.env.VERCEL !== "1") {
+
+    app.listen(PORT, () => {
+        console.log(`Inquiry server running on http://localhost:${PORT}`);
+    });
+
+}
+
+export default app;
