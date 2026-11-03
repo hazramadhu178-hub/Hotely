@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Check, ChevronDown, Clock, MapPin, Menu, Sparkles, X } from 'lucide-react';
+import { Check, ChevronDown, Clock, Menu, X } from 'lucide-react';
 import { Logo } from './ui.jsx';
 import { regions } from '../hotelData.js';
 import { useApp } from '../context/AppContext.jsx';
@@ -58,9 +58,7 @@ export default function Header() {
       <div className="topbar">
         <div className="container topbar-inner">
           <ul className="topbar-list">
-            <li><MapPin size={13} />North Male Atoll, Maldives</li>
             <li><Clock size={13} />Check-in 3 PM / Check-out 11 AM</li>
-            <li><Sparkles size={13} />Breakfast included in every stay</li>
           </ul>
           <div className="topbar-actions">
             <button type="button" onClick={() => { closeMenus(); openContact(); }}>Enquire</button>
