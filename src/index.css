@@ -128,7 +128,7 @@ textarea { resize: vertical; }
 .header-shell { display: contents; }
 .topbar { background: var(--teal-deep); color: #d8e8e3; }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 42px; }
-.topbar-list { display: flex; align-items: center; gap: 26px; list-style: none; padding: 0; }
+.topbar-list { display: flex; align-items: center; gap: 26px; list-style: none; padding: 0; margin: 0; }
 .topbar-list li { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; letter-spacing: 0.3px; }
 .topbar-list svg { color: var(--gold); }
 .topbar-actions { display: flex; align-items: center; gap: 14px; }
@@ -909,8 +909,7 @@ textarea { resize: vertical; }
 
 @media (max-width: 1250px) {
   .container { width: 84%; }
-  .topbar-list { gap: 18px; }
-  .topbar-list li:nth-child(3) { display: none; }
+  .topbar-list { gap: 8px 18px; }
   .main-nav { gap: 2px; padding-right: 20px; }
   .nav-link { font-size: 9px; padding-inline: 8px; }
   .nav-link--active { padding-inline: 8px; }
@@ -1036,8 +1035,8 @@ textarea { resize: vertical; }
   .hours-row { grid-template-columns: 1fr; gap: 6px; }
   .sustainability-card, .beach-notes-head { grid-template-columns: 1fr; gap: 20px; }
   .beach-notes { grid-template-columns: 1fr; }
-  .topbar-inner { min-height: 40px; }
-  .topbar-list li:nth-child(2) { display: none; }
+  .topbar-inner { min-height: 40px; flex-wrap: wrap; justify-content: center; gap: 8px 18px; padding-block: 8px; }
+  .topbar-list { flex-wrap: wrap; justify-content: center; gap: 8px 16px; }
   .header-inner { position: relative; min-height: 76px; }
   .header-actions { margin-left: auto; }
   .main-nav { display: none; position: absolute; top: 72px; left: 0; right: 0; padding: 16px; border: 1px solid var(--line-soft); border-radius: 14px; background: rgba(253, 250, 245, 0.98); backdrop-filter: blur(12px); box-shadow: var(--shadow-md); }
@@ -1122,8 +1121,12 @@ textarea { resize: vertical; }
   .dining-venue { padding: 16px; }
   .contact-form-panel h2 { font-size: 23px; }
   html { scroll-padding-top: 104px; }
-  .topbar-list { gap: 14px; }
-  .topbar-actions button:last-child { display: none; }
+  .topbar-inner { display: flex; flex-direction: row; justify-content: space-between; gap: 8px; }
+  .topbar-list { display: flex; flex: 1; justify-content: flex-start; }
+  .topbar-actions { gap: 8px; }
+  .topbar-divider { display: block; }
+  .topbar-list li { min-width: 0; font-size: 8.5px; line-height: 1.4; white-space: nowrap; }
+  .topbar-actions button { font-size: 8px; white-space: nowrap; }
   .header-inner { min-height: 70px; }
   .brand > span { font-size: 24px; }
   .main-nav { top: 66px; }
@@ -1220,7 +1223,6 @@ textarea { resize: vertical; }
 
 @media (max-width: 480px) {
   .container { width: 90%; }
-  .topbar-list li:first-child { display: none; }
   .topbar-inner { justify-content: center; }
   .header-actions { gap: 8px; }
 
