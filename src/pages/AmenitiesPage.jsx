@@ -15,7 +15,7 @@ export default function AmenitiesPage() {
         title="Amenities"
         intro="The essentials are included, the practical details are handled, and our team is always close by. Here is everything you can use during your stay."
         image={images.reception}
-        imageAlt="The welcoming reception area at Hotely Beach Resort"
+        imageAlt="The welcoming reception area at Hotely Kanchenjunga Lodge"
         facts={[
           { icon: Wifi, label: 'Wi-Fi in every room' },
           { icon: BellRing, label: '24-hour reception' },

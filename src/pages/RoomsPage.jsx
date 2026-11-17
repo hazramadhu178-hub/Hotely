@@ -28,9 +28,9 @@ export default function RoomsPage() {
       <PageHero
         eyebrow="Rooms, suites & villas"
         title="Rooms"
-        intro="Sixteen room types across four styles, from a bright deluxe room to a three-bedroom beach house. Every rate includes breakfast, Wi-Fi, and access to the pool and fitness studio."
-        image={images.oceanKing}
-        imageAlt="A bright hotel bedroom opening onto a balcony with sea views"
+        intro="Sixteen room types across four styles, from a bright deluxe room to a three-bedroom mountain residence. Every rate includes breakfast, Wi-Fi, and access to the pool and fitness studio."
+        image={images.kanchenjungaRoom}
+        imageAlt="A bright hotel bedroom opening onto a balcony with mountain views"
         facts={[
           { icon: BedDouble, label: `${rooms.length} room types` },
           { icon: Coffee, label: 'Breakfast included' },

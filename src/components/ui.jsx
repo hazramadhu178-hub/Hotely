@@ -28,7 +28,7 @@ export function Button({ children, variant = 'gradient', rounded = false, classN
 
 export function Logo({ onClick }) {
   return (
-    <a className="brand" href="#home" aria-label="Hotely Beach Resort home" onClick={onClick}>
+    <a className="brand" href="#home" aria-label="Hotely Kanchenjunga Lodge home" onClick={onClick}>
       <svg viewBox="0 0 46 48" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M3 44V15h11M14 44V5h17v39M31 15h12v29H3M19 44v-9h7v9M18 10h9M18 17h9M18 24h9M7 20h3M7 26h3M7 32h3M7 38h3M35 20h4M35 26h4M35 32h4M35 38h4" />
         <path d="M19 29h7M18 5V2h9v3" />
@@ -76,7 +76,7 @@ export function Photo({ src, alt, className = '', eager = false, ...props }) {
   return <img src={src} alt={alt} className={className} loading={eager ? 'eager' : 'lazy'} decoding="async" {...props} onError={(event) => {
     if (!event.currentTarget.dataset.fallback) {
       event.currentTarget.dataset.fallback = 'true';
-      event.currentTarget.src = '/images/tropical-beach.jpg';
+      event.currentTarget.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=85';
     }
   }} />;
 }

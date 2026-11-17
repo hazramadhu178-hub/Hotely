@@ -9,7 +9,7 @@ import { useApp } from '../context/AppContext.jsx';
 const contactCards = [
   { id: 'reservations', icon: BellRing, title: 'Reservations', text: 'Room availability, rates, offers, and group bookings.', action: 'Ask about a room', topic: 'reservations' },
   { id: 'dining', icon: Utensils, title: 'Dining & spa', text: 'Restaurant tables, private dinners, and spa appointments.', action: 'Request a booking', topic: 'dining' },
-  { id: 'arrival', icon: MapPin, title: 'Arrival & transfers', text: 'Flight details, speedboat timings, and arrival assistance.', action: 'Plan your arrival', topic: 'arrival' },
+  { id: 'arrival', icon: MapPin, title: 'Arrival & transfers', text: 'Flight details, road transfer timings, and arrival assistance.', action: 'Plan your arrival', topic: 'arrival' },
   { id: 'events', icon: CalendarHeart, title: 'Weddings & events', text: 'Celebrations, private hire, and milestone occasions.', action: 'Start an enquiry', topic: 'events' },
 ];
 
@@ -28,7 +28,7 @@ export default function ContactPage() {
         title="Contact"
         intro="Ask about a room, plan an arrival, book a table, or tell us about a special occasion. Our reception team answers around the clock."
         image={images.terrace}
-        imageAlt="The waterfront terrace at Hotely Beach Resort"
+        imageAlt="The mountain-view terrace at Hotely Kanchenjunga Lodge"
         facts={[
           { icon: Clock, label: 'Reception open 24 hours' },
           { icon: Mail, label: hotelInfo.email },
@@ -116,7 +116,7 @@ export default function ContactPage() {
                     <label className="form-label">Email address<input className={inputClass} name="email" type="email" autoComplete="email" required maxLength={120} placeholder="you@example.com" /></label>
                   </div>
                   <div className="form-grid">
-                    <label className="form-label">Phone number<input className={inputClass} name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={20} placeholder="+960 123 4567" /></label>
+                    <label className="form-label">Phone number<input className={inputClass} name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={20} placeholder="+91 12345 67890" /></label>
                     <label className="form-label">
                       How can we help?
                       <select className={inputClass} name="topic" value={topic} onChange={(event) => setTopic(event.target.value)}>
@@ -153,7 +153,7 @@ export default function ContactPage() {
               </div>
               <div className="contact-note-card">
                 <h4>Planning your arrival?</h4>
-                <p>Share your flight number and arrival time at least 48 hours ahead so our team can coordinate your transfer.</p>
+                <p>Share your flight number and arrival time at least 48 hours ahead so our team can coordinate your road transfer.</p>
                 <Link to="/location">See location &amp; arrival<ArrowRight size={14} /></Link>
               </div>
             </aside>
@@ -164,7 +164,7 @@ export default function ContactPage() {
       <section className="contour-surface section-space">
         <div className="container reveal">
           <SectionHeading eyebrow="Who you will hear from">Our departments, and when they reply.</SectionHeading>
-          <p className="section-lead">Reception is staffed around the clock. Specialist teams work island hours, so a reply may arrive the next morning.</p>
+          <p className="section-lead">Reception is staffed around the clock. Specialist teams work local hours, so a reply may arrive the next morning.</p>
           <div className="department-grid">
             {contactDepartments.map((dept) => (
               <article className="department-card" key={dept.id}>

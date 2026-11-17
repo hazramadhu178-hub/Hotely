@@ -13,9 +13,9 @@ export default function DiningPage() {
       <PageHero
         eyebrow="Restaurants & bars"
         title="Dining"
-        intro="Three places to eat and drink, all within a short walk of your room. Breakfast is included with every stay, and the daily catch comes in on local boats."
+        intro="Three places to eat and drink, all within a short walk of your room. Breakfast is included with every stay, and our menus celebrate seasonal produce and regional flavors."
         image={images.restaurant}
-        imageAlt="Open-air beachfront dining at The Palm Table"
+        imageAlt="Open-air dining at The Summit Table with mountain views"
         facts={[
           { icon: Utensils, label: '3 restaurants & bars' },
           { icon: Clock, label: 'Breakfast 7 - 10:30 AM' },
@@ -25,7 +25,7 @@ export default function DiningPage() {
 
       <section className="section-space">
         <div className="container reveal">
-          <SectionHeading eyebrow="Where to eat">Fresh flavours, served beside the sea.</SectionHeading>
+          <SectionHeading eyebrow="Where to eat">Fresh flavours, inspired by the mountains.</SectionHeading>
           <div className="dining-list">
             {diningVenues.map((venue, index) => (
               <article className={`dining-venue ${index % 2 === 1 ? 'dining-venue--reverse' : ''}`} key={venue.id}>
@@ -75,15 +75,15 @@ export default function DiningPage() {
 
       <section className="section-space" style={{ paddingTop: 0 }}>
         <div className="container reveal">
-          <div className="beach-notes-card">
-            <div className="beach-notes-head">
+          <div className="stay-notes-card">
+            <div className="stay-notes-head">
               <span className="sustainability-icon"><Info size={24} strokeWidth={1.4} /></span>
               <div>
                 <span className="eyebrow"><i aria-hidden="true" />Good to know</span>
                 <h2>Dining details worth knowing before you arrive.</h2>
               </div>
             </div>
-            <ul className="beach-notes">
+            <ul className="stay-notes-list">
               {diningNotes.map((note) => <li key={note}><Check size={14} />{note}</li>)}
             </ul>
             <div className="modal-action-row" style={{ justifyContent: 'flex-start' }}>

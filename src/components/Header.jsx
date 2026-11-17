@@ -13,7 +13,7 @@ const primaryLinks = [
 ];
 
 const discoverLinks = [
-  { to: '/beach', label: 'The beach' },
+  { to: '/mountains', label: 'The mountains' },
   { to: '/amenities', label: 'Amenities' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/reviews', label: 'Guest reviews' },

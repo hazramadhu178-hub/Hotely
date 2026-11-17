@@ -276,7 +276,7 @@ export function EventContent({ onClose }) {
         setIsSubmitting(false);
       }
     }}>
-      <p className="modal-intro">A beachfront wedding, a private dinner, or a gathering with your team. Tell us about your occasion and the hotel setting you have in mind.</p>
+      <p className="modal-intro">A mountain-view wedding, a private dinner, or a gathering with your team. Tell us about your occasion and the lodge setting you have in mind.</p>
       <div className="form-grid">
         <label className="form-label">Full name<input className={inputClass} name="name" autoComplete="name" required minLength={2} pattern=".*\S.*" placeholder="Your full name" /></label>
         <label className="form-label">Email address<input className={inputClass} name="email" autoComplete="email" type="email" required placeholder="you@example.com" /></label>
@@ -418,8 +418,8 @@ export function LegalContent({ type }) {
         <p>Illustrative hotel photography and video may load from Pexels and Unsplash. Fonts load from Google Fonts. These providers receive normal web request information when their assets load.</p>
       </> : <>
         <p className="article-lead">A hotel website demonstration, not a live reservation service.</p>
-        <h3>About Hotely Beach Resort</h3>
-        <p>Hotely Beach Resort is a fictional hotel used for this interactive design. Room descriptions, location, prices, facilities, staff profiles, opening hours, guest reviews, and contact details are sample content. Photography is illustrative and does not represent one real property.</p>
+        <h3>About Hotely Kanchenjunga Lodge</h3>
+        <p>Hotely Kanchenjunga Lodge is a fictional hotel used for this interactive design. Room descriptions, location, prices, facilities, staff profiles, opening hours, guest reviews, and contact details are sample content. Photography is illustrative and does not represent one real property.</p>
         <h3>Rooms and reservations</h3>
         <p>The room search filters sample accommodation by category and guest capacity. Dates are used to calculate the example length of stay and total; no live inventory is checked. A demo reservation only creates a record in this browser and never reserves an actual room.</p>
         <h3>Rates and guest services</h3>

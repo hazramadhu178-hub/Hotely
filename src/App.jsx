@@ -5,7 +5,7 @@ import Layout from './components/Layout.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import RoomsPage from './pages/RoomsPage.jsx';
-import BeachPage from './pages/BeachPage.jsx';
+import MountainsPage from './pages/MountainsPage.jsx';
 import AmenitiesPage from './pages/AmenitiesPage.jsx';
 import GalleryPage from './pages/GalleryPage.jsx';
 import DiningPage from './pages/DiningPage.jsx';
@@ -24,7 +24,8 @@ export default function App() {
               <Route index element={<HomePage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="rooms" element={<RoomsPage />} />
-              <Route path="beach" element={<BeachPage />} />
+              <Route path="mountains" element={<MountainsPage />} />
+              <Route path="beach" element={<Navigate to="/mountains" replace />} />
               <Route path="amenities" element={<AmenitiesPage />} />
               <Route path="gallery" element={<GalleryPage />} />
               <Route path="dining" element={<DiningPage />} />

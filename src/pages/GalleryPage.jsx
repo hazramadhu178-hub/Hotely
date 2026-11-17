@@ -34,13 +34,13 @@ export default function GalleryPage() {
       <PageHero
         eyebrow="Photos & films"
         title="Gallery"
-        intro="A look around the resort: the rooms, the table, the pool, the garden pavilions, and the stretch of sand that ties it all together."
+        intro="A look around the lodge: the rooms, the table, the pool, the garden pavilions, and the mountain views that tie it all together."
         image={images.sunset}
         imageAlt="The resort infinity pool at sunset"
         facts={[
           { icon: Images, label: `${galleryItems.length} photographs` },
           { icon: Film, label: `${films.length} short films` },
-          { icon: Camera, label: 'Rooms, dining & beach' },
+          { icon: Camera, label: 'Rooms, dining & mountains' },
         ]}
       />
 
@@ -134,7 +134,7 @@ export default function GalleryPage() {
           </div>
           <div className="cta-actions">
             <Button variant="gold" href="#/rooms">Explore Rooms<ArrowRight size={15} /></Button>
-            <Button variant="ghost" href="#/beach">Visit the Beach</Button>
+            <Button variant="ghost" href="#/mountains">Explore the Mountains</Button>
           </div>
         </div>
       </section>

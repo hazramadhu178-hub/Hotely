@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BedDouble, BellRing, CheckCircle2, ChevronRight, Sparkles, Utensils, Waves } from 'lucide-react';
+import { ArrowRight, BedDouble, BellRing, CheckCircle2, ChevronRight, Mountain, Sparkles, Utensils } from 'lucide-react';
 import { Button, Logo, inputClass } from './ui.jsx';
 import { hotelInfo } from '../hotelData.js';
 import { useApp } from '../context/AppContext.jsx';
@@ -8,7 +8,7 @@ import { useApp } from '../context/AppContext.jsx';
 const exploreLinks = [
   ['About the hotel', '/about'],
   ['Rooms & suites', '/rooms'],
-  ['The beach', '/beach'],
+  ['The mountains', '/mountains'],
   ['Amenities', '/amenities'],
   ['Gallery', '/gallery'],
   ['Dining', '/dining'],
@@ -26,21 +26,21 @@ export default function Footer() {
       <div className="container footer-grid">
         <div className="footer-about">
           <Logo />
-          <p>Your seaside sanctuary. Comfortable rooms, thoughtful service, and a warm welcome at Hotely Beach Resort.</p>
+          <p>Your mountain sanctuary. Comfortable rooms, thoughtful service, and a warm welcome at Hotely Kanchenjunga Lodge.</p>
           <p>Check-in from {hotelInfo.checkIn}.<br />Check-out by {hotelInfo.checkOut}.<br />Our reception team is available 24 hours.</p>
         </div>
 
         <div className="footer-services">
           <h3>Contact our hotel</h3>
           <address>
-            <Link to="/location"><ChevronRight /><span>North Male Atoll,<br />Maldives</span></Link>
+            <Link to="/location"><ChevronRight /><span>Pelling, Sikkim,<br />India</span></Link>
             <button type="button" onClick={() => openContact({ topic: 'reservations' })}><BellRing /><span>Speak to reservations</span></button>
             <button type="button" onClick={() => openContact()}><Sparkles /><span>{hotelInfo.email}</span></button>
           </address>
           <div className="social-links" aria-label="Hotel quick links">
             <Link to="/rooms" aria-label="Browse hotel rooms"><BedDouble size={16} /></Link>
             <Link to="/dining" aria-label="Explore hotel dining"><Utensils size={15} /></Link>
-            <Link to="/beach" aria-label="Explore the resort beach"><Waves size={16} /></Link>
+            <Link to="/mountains" aria-label="Explore the mountains"><Mountain size={16} /></Link>
             <Link to="/contact" aria-label="Contact the hotel"><Sparkles size={15} /></Link>
           </div>
         </div>
@@ -87,11 +87,11 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="hotel-demo-notice container">Hotely Beach Resort is a fictional hotel created for this design demonstration. Room reservations, rates, offers, and guest reviews are illustrative, and nothing is sent to a real hotel.</p>
+      <p className="hotel-demo-notice container">Hotely Kanchenjunga Lodge is a fictional hotel created for this design demonstration. Room reservations, rates, offers, and guest reviews are illustrative, and nothing is sent to a real hotel.</p>
 
       <div className="footer-bottom">
         <div className="container">
-          <p>Copyright &copy; 2026 <Link to="/">Hotely Beach Resort.</Link> All Rights Reserved.</p>
+          <p>Copyright &copy; 2026 <Link to="/">Hotely Kanchenjunga Lodge.</Link> All Rights Reserved.</p>
           <div>
             <button type="button" onClick={() => setModal({ type: 'privacy' })}>Privacy Policy</button>
             <span aria-hidden="true">|</span>

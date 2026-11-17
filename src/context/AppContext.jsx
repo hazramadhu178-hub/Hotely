@@ -9,7 +9,7 @@ export function AppProvider({ children }) {
   const [toast, setToast] = useState('');
   const [favorites, setFavorites] = useStoredState('hotely-room-favorites', []);
   const [reservations, setReservations] = useStoredState('hotely-room-reservations', []);
-  const [regionId, setRegionId] = useStoredState('hotely-region', 'us');
+  const [regionId, setRegionId] = useStoredState('hotely-region', 'in');
   const [newsletter, setNewsletter] = useStoredState('hotely-hotel-newsletter', null);
 
   useEffect(() => {

@@ -6,7 +6,7 @@ export default function RoomCard({ room, region, saved, onSave, onOpen }) {
   return (
     <article className="room-card">
       <div className="room-media">
-        <button className="room-image-button" type="button" onClick={() => onOpen(room)} aria-label={`View ${room.name} at Hotely Beach Resort`}>
+        <button className="room-image-button" type="button" onClick={() => onOpen(room)} aria-label={`View ${room.name} at Hotely Kanchenjunga Lodge`}>
           <Photo className="room-image" src={room.image} alt={`${room.name}, ${room.view.toLowerCase()} accommodation at Hotely`} />
         </button>
         <span className="room-badge">{room.category}</span>

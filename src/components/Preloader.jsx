@@ -44,7 +44,7 @@ export default function Preloader() {
 
   return (
     <div className={`preloader ${hidden ? 'is-hidden' : ''}`} aria-hidden={hidden}>
-      <span className="sr-only" role="status">Loading Hotely Beach Resort</span>
+      <span className="sr-only" role="status">Loading Hotely Kanchenjunga Lodge</span>
       <div className="preloader-mark" aria-hidden="true">
         <svg viewBox="0 0 46 48" fill="none" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 44V15h11M14 44V5h17v39M31 15h12v29H3M19 44v-9h7v9M18 10h9M18 17h9M18 24h9M7 20h3M7 26h3M7 32h3M7 38h3M35 20h4M35 26h4M35 32h4M35 38h4" />
@@ -52,11 +52,11 @@ export default function Preloader() {
         </svg>
       </div>
       <p className="preloader-word" aria-hidden="true">Hotely</p>
-      <p className="preloader-sub" aria-hidden="true">Beach Resort</p>
+      <p className="preloader-sub" aria-hidden="true">Kanchenjunga Lodge</p>
       <div className="preloader-bar" aria-hidden="true"><span /></div>
-      <div className="preloader-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path d="M0 30 C 120 10, 240 50, 360 30 S 600 10, 720 30 S 960 50, 1080 30 S 1320 10, 1440 30 V64 H0 Z" fill="currentColor" /></svg>
-        <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path d="M0 30 C 120 10, 240 50, 360 30 S 600 10, 720 30 S 960 50, 1080 30 S 1320 10, 1440 30 V64 H0 Z" fill="currentColor" /></svg>
+      <div className="preloader-ridge" aria-hidden="true">
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path d="M0 55 180 22 310 43 480 8 650 38 820 12 990 44 1150 18 1300 42 1440 10V64H0Z" fill="currentColor" /></svg>
+        <svg viewBox="0 0 1440 64" preserveAspectRatio="none"><path d="M0 55 180 22 310 43 480 8 650 38 820 12 990 44 1150 18 1300 42 1440 10V64H0Z" fill="currentColor" /></svg>
       </div>
     </div>
   );

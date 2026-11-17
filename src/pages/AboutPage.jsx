@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Award, BedDouble, Leaf, Users, Waves } from 'lucide-react';
+import { ArrowRight, Award, BedDouble, Leaf, Mountain, Users } from 'lucide-react';
 import PageHero from '../components/PageHero.jsx';
 import { StatsBand } from '../components/ExtraSections.jsx';
 import { Button, Photo, SectionHeading, useScrollReveal } from '../components/ui.jsx';
@@ -8,15 +8,15 @@ import { useApp } from '../context/AppContext.jsx';
 
 const principles = [
   { id: 'personal', title: 'Personal, never formal', text: 'We learn the details that matter to you and help when you need us, without making your stay feel managed.' },
-  { id: 'island', title: 'Rooted in the island', text: 'Open-air spaces, coastal cooking, and an easy indoor-outdoor rhythm let the setting shape each day.' },
+  { id: 'mountains', title: 'Rooted in the mountains', text: 'Open-air spaces, regional cooking, and an easy indoor-outdoor rhythm let the Himalayan setting shape each day.' },
   { id: 'rest', title: 'Rest with intention', text: 'Quiet rooms, comfortable beds, shaded corners, and thoughtful routines create space to properly switch off.' },
   { id: 'footprint', title: 'A lighter footprint', text: 'Refillable amenities, considered water use, and fewer single-use items guide the way we care for our surroundings.' },
 ];
 
 const timeline = [
-  { id: 'founded', year: 'The beginning', title: 'A single row of villas', text: 'Hotely began as eight simple villas built among the palms, with a kitchen that served whatever the boats brought in that morning.' },
+  { id: 'founded', year: 'The beginning', title: 'A quiet hillside retreat', text: 'Hotely began as eight simple rooms overlooking the foothills, with a kitchen shaped by seasonal produce and local recipes.' },
   { id: 'grown', year: 'Growing gently', title: 'Forty-eight rooms, same spirit', text: 'We added suites, family rooms, and private villas, but kept the scale small enough that the team still knows every guest by name.' },
-  { id: 'today', year: 'Today', title: 'A hotel built around rest', text: 'Three places to eat, a spa in the garden, a quiet beach, and a promise that nothing here needs to be rushed.' },
+  { id: 'today', year: 'Today', title: 'A lodge built around rest', text: 'Three places to eat, a spa in the garden, hillside trails nearby, and a promise that nothing here needs to be rushed.' },
 ];
 
 export default function AboutPage() {
@@ -28,12 +28,12 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About Hotely"
         title="About Us"
-        intro="A quieter kind of island hotel, where the setting leads and the service feels natural: warm, attentive, and never overdone."
+        intro="A quieter kind of mountain lodge, where the setting leads and the service feels natural: warm, attentive, and never overdone."
         image={images.exterior}
-        imageAlt="The villas and tropical gardens of Hotely Beach Resort"
+        imageAlt="A mountain lodge among green Himalayan foothills"
         facts={[
           { icon: BedDouble, label: '48 rooms, suites & villas' },
-          { icon: Waves, label: '120m private beachfront' },
+          { icon: Mountain, label: 'Kanchenjunga views' },
           { icon: Users, label: 'A team of 60 hosts' },
         ]}
       />
@@ -42,16 +42,16 @@ export default function AboutPage() {
       <div className="container">
       <div className="about-layout reveal">
       <div className="about-media">
-      <Photo className="about-main-photo" src={images.gardens} alt="A quiet pool and palm garden at the resort" />
+      <Photo className="about-main-photo" src={images.gardens} alt="A quiet pool and hillside garden at the lodge" />
       <div className="about-secondary-media">
         <Photo src={images.reception} alt="The resort reception and lobby area" />
       </div>
-      <p className="about-caption"><span>North Male Atoll</span>A small resort between the gardens and the lagoon.</p>
+      <p className="about-caption"><span>Pelling, Sikkim</span>A small lodge among the Himalayan foothills.</p>
       </div>
       <div className="about-copy">
       <span className="eyebrow"><i aria-hidden="true" />Our story</span>
       <h2>Built slowly, and kept deliberately small.</h2>
-      <p className="about-lead">Our 48 rooms, suites, and villas sit between tropical gardens and a calm stretch of lagoon. The scale is intentionally intimate.</p>
+      <p className="about-lead">Our 48 rooms, suites, and villas sit among hillside gardens with views toward Kanchenjunga. The scale is intentionally intimate.</p>
       <p>It means breakfast can be unhurried, favourite drinks are remembered, and there is always a quiet corner to make your own. Our team has the time to notice what would make your day easier, from a shaded lounger at the right hour to a table where you can watch the sunset.</p>
       <p>Rather than filling every hour with a programme, we give you room to choose your own pace. Swim before breakfast, stay by the pool until the light goes, book time at the spa, or simply leave the day open and see what it becomes.</p>
       <blockquote>
@@ -60,7 +60,7 @@ export default function AboutPage() {
       </blockquote>
       <div className="about-actions">
         <Button variant="teal" href="#/rooms">Explore Rooms &amp; Villas<ArrowRight size={15} /></Button>
-        <Link to="/beach">See the beach<ArrowRight size={15} /></Link>
+        <Link to="/mountains">Explore the mountains<ArrowRight size={15} /></Link>
       </div>
       </div>
       </div>
@@ -103,7 +103,7 @@ export default function AboutPage() {
         <div className="container hosts-layout reveal">
           <div className="hosts-copy">
             <SectionHeading eyebrow="Meet our hotel team" align="left">The people who make you feel at home.</SectionHeading>
-            <p className="about-team-note">Our team lives on and around the atoll, and many have been with the hotel for years. They are the reason guests come back.</p>
+            <p className="about-team-note">Our team lives in and around Pelling, and many have been with the lodge for years. They are the reason guests come back.</p>
             <Button rounded onClick={() => openContact({ topic: 'guest-services' })}>Contact Our Team<ArrowRight size={15} /></Button>
           </div>
           <div className="hosts-grid">
@@ -142,10 +142,10 @@ export default function AboutPage() {
           <div className="sustainability-card">
             <div className="sustainability-icon"><Leaf size={26} strokeWidth={1.4} /></div>
             <div>
-              <span className="eyebrow"><i aria-hidden="true" />Caring for the island</span>
+              <span className="eyebrow"><i aria-hidden="true" />Caring for the mountains</span>
               <h2>Small changes, made consistently.</h2>
-              <p>We use refillable amenities in every room, filter and bottle our own drinking water, compost kitchen waste for the gardens, and work with local boats for the daily catch. Reef-safe sun cream is available at reception, and our team can explain how to enjoy the house reef without disturbing it.</p>
-              <p>Our gardens are planted entirely with native species that need little irrigation, solar panels cover a growing share of our daytime power, and we have removed single-use plastic from every guest area. None of it is dramatic on its own; together it adds up.</p>
+              <p>We use refillable amenities in every room, filter drinking water, compost kitchen waste for the gardens, and source seasonal ingredients from nearby suppliers. Our team can help guests explore local trails and cultural sites respectfully.</p>
+              <p>Our gardens use native plants suited to the hillside climate, solar panels cover a growing share of our daytime power, and we have removed single-use plastic from every guest area. None of it is dramatic on its own; together it adds up.</p>
               <p className="form-note" style={{ justifyContent: 'flex-start', textAlign: 'left' }}>These practices are described as part of this fictional hotel demonstration.</p>
             </div>
           </div>

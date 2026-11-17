@@ -3,7 +3,7 @@ import { hotelStats } from '../hotelData.js';
 /* A dark band of headline figures, shared by the home and about pages. */
 export function StatsBand() {
   return (
-    <section className="stats-band" aria-label="Hotely Beach Resort at a glance">
+    <section className="stats-band" aria-label="Hotely Kanchenjunga Lodge at a glance">
       <div className="container stats-inner">
         {hotelStats.map((stat) => (
           <div className="stat" key={stat.label}>
